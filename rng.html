@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset='utf-8'>
+		<meta name='viewport' content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+        <title>Random Number Game</title>
+        <style>
+            .options {
+                display: flex;
+                justify-content: center;
+            }
+            .bg-image {
+        background-image: url('heresy.jpeg'); /* To go with my love or Warhammer! */
+        background-size: contain;
+        background-position: left center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        
+    }
+
+        </style>
+    </head> 
+    <body>
+        <!-- Buttons to represent the range of numbers -->
+        <div class="container-fluid bg-image m-3 d-flex justify-content-center flex-column align-items-center">
+                
+        <div class="options">
+            <button type="button" class="btn btn-success" data-cy="1" id="1">1</button>
+            <button type="button" class="btn btn-success" data-cy="2" id="2">2</button>
+            <button type="button" class="btn btn-success" data-cy="3" id="3">3</button>
+            <button type="button" class="btn btn-success" data-cy="4" id="4">4</button>
+            <button type="button" class="btn btn-success" data-cy="5" id="5">5</button>
+            <button type="button" class="btn btn-success" data-cy="6" id="6">6</button>
+            <button type="button" class="btn btn-success" data-cy="7" id="7">7</button>
+            <button type="button" class="btn btn-success" data-cy="8" id="8">8</button>
+            <button type="button" class="btn btn-success" data-cy="9" id="9">9</button>
+            <button type="button" class="btn btn-success" data-cy="10" id="10">10</button>
+            <button type="button" class="btn btn-success" data-cy="11" id="11">11</button>
+            <button type="button" class="btn btn-success"data-cy="12" id="12">12</button>
+            <button type="button" class="btn btn-success"data-cy="13" id="13">13</button>
+            <button type="button" class="btn btn-success"data-cy="14" id="14">14</button>
+            <button type="button" class="btn btn-success"data-cy="15" id="15">15</button>
+
+        </div>
+        <br>
+        <div class="justify-content-center bg-light bg-opacity-10">
+            <div class="p-3 mb-2 ">
+        <!-- Info for choice and corresponding info returned -->
+        <h2 class="text-dark">User Choice: <span data-cy="user-option" id="user-option"></span></h2>
+
+        <h2 class="text-dark">Computer Remark: <span data-cy="remark" id="remark"></span></h2>
+
+        <h2 class="text-dark">Guesses Remaining: <span id="guesses"></span></h2>
+        
+        <h2 class="text-dark">Computer Option: <span data-cy="computer-option" id="computer-option"></span></h2>
+        </div>
+        </div>
+  
+       </div>
+        <script>
+            // Get the buttons
+           const oneBtn = document.getElementById("1");
+           const twoBtn = document.getElementById("2");
+           const threeBtn = document.getElementById("3");
+           const fourBtn = document.getElementById("4");
+           const fiveBtn = document.getElementById("5");
+           const sixBtn = document.getElementById("6");
+           const sevenBtn = document.getElementById("7");
+           const eightBtn = document.getElementById("8");
+           const nineBtn = document.getElementById("9");
+           const tenBtn = document.getElementById("10");
+           const elevenBtn = document.getElementById("11");
+           const twelveBtn = document.getElementById("12");
+           const thirteenBtn = document.getElementById("13");
+           const fourteenBtn = document.getElementById("14");
+           const fifteenBtn = document.getElementById("15");
+
+            //    Get the spans
+            const userOptionSpan = document.getElementById("user-option");
+            const remarkSpan = document.getElementById("remark");
+            const guessesSpan = document.getElementById("guesses");
+            const computerOptionSpan = document.getElementById("computer-option");
+
+            let triesLeft = 5;
+
+            // Defines the options
+            const options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+
+            // Add click events to the buttons
+            oneBtn.addEventListener("click", function() {
+                playGame(options[0]);
+            });
+
+            twoBtn.addEventListener("click", function() {
+                playGame(options[1]);
+            });
+
+            threeBtn.addEventListener("click", function() {
+                playGame(options[2]);
+            });
+
+            fourBtn.addEventListener("click", function() {
+                playGame(options[3]);
+            });
+
+            fiveBtn.addEventListener("click", function() {
+                playGame(options[4]);
+            });
+
+            sixBtn.addEventListener("click", function() {
+                playGame(options[5]);
+            });
+
+            sevenBtn.addEventListener("click", function() {
+                playGame(options[6]);
+            });
+
+            eightBtn.addEventListener("click", function() {
+                playGame(options[7]);
+            });
+
+            nineBtn.addEventListener("click", function() {
+                playGame(options[8]);
+            });
+
+            tenBtn.addEventListener("click", function() {
+                playGame(options[9]);
+            });
+
+            elevenBtn.addEventListener("click", function() {
+                playGame(options[10]);
+            });
+
+            twelveBtn.addEventListener("click", function() {
+                playGame(options[11]);
+            });
+
+            thirteenBtn.addEventListener("click", function() {
+                playGame(options[12]);
+            });
+
+            fourteenBtn.addEventListener("click", function() {
+                playGame(options[13]);
+            });
+
+            fifteenBtn.addEventListener("click", function() {
+                playGame(options[14]);
+            });
+
+            // Play the game function
+            function playGame(userOption) {
+                // Resets the game
+                if (triesLeft === 5) {
+                    computerOption = options[Math.floor(Math.random() * options.length)]
+                }
+
+                console.log(triesLeft);
+                //  Set the user option and decrements the guesses left by 1
+                userOptionSpan.innerHTML = userOption;
+                triesLeft --;
+
+                //  When guesses remaining hits 0, the results are printed and the computer choice is reset in preparation for next game
+                if (triesLeft === 0) {
+                    computerOptionSpan.innerHTML = computerOption
+                    triesLeft = 5
+                    console.log('game restart, tries:', triesLeft);
+                } else {
+                    computerOptionSpan.innerHTML = "";
+                }
+
+                // Compare the options
+                // lower, wrong number is chosen
+                if (userOption < computerOption) {
+                    remarkSpan.innerHTML = "Your guess was " + userOption + "! The correct answer is higher!"
+                }
+                // higher, wrong number is chosen
+                else if (userOption > computerOption) {
+                    remarkSpan.innerHTML = "Your guess was " + userOption + "! The correct answer is lower!";
+                }
+                // Right number is chosen
+                else {
+                    remarkSpan.innerHTML = "Your guess was " + userOption + "! That is the correct number!";
+                }
+            }
+        </script>
+
+    </body>
+</html>
